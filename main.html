@@ -1,0 +1,2001 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fimza Software - Магазин приложений и игр</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Основные стили */
+        :root {
+            --primary: #171a21;
+            --secondary: #1b2838;
+            --accent: #66c0f4;
+            --accent-dark: #4f9bc7;
+            --text: #c7d5e0;
+            --text-secondary: #8f98a0;
+            --success: #5c7e10;
+            --warning: #e6a82a;
+            --danger: #d94141;
+            --border: #2a475e;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--primary);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+        
+        /* Кнопки */
+        .btn {
+            padding: 10px 20px;
+            border-radius: 3px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .btn-primary {
+            background-color: var(--accent);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--accent-dark);
+        }
+        
+        .btn-secondary {
+            background-color: transparent;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+        }
+        
+        .btn-secondary:hover {
+            background-color: rgba(102, 192, 244, 0.1);
+        }
+        
+        .btn-success {
+            background-color: var(--success);
+            color: white;
+        }
+        
+        .btn-large {
+            padding: 12px 30px;
+            font-size: 16px;
+        }
+        
+        /* Header */
+        header {
+            background-color: var(--secondary);
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--accent);
+            text-decoration: none;
+        }
+        
+        .logo i {
+            font-size: 28px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+        
+        .nav-link {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 3px;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            color: var(--accent);
+            background-color: rgba(102, 192, 244, 0.1);
+        }
+        
+        .user-actions {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        
+        .search-box {
+            position: relative;
+        }
+        
+        .search-input {
+            padding: 8px 15px 8px 35px;
+            background: #2a475e;
+            border: 1px solid var(--border);
+            border-radius: 3px;
+            color: white;
+            width: 200px;
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+        }
+        
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .username {
+            font-weight: 500;
+        }
+        
+        /* Страницы */
+        .page {
+            min-height: calc(100vh - 200px);
+            padding: 30px 0;
+        }
+        
+        .page-title {
+            font-size: 32px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--accent);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(23, 26, 33, 0.9), rgba(23, 26, 33, 0.9)), 
+                        url('https://images.unsplash.com/photo-1511512578047-dfb367046420?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 80px 0;
+            text-align: center;
+            border-radius: 5px;
+            margin-bottom: 40px;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: white;
+        }
+        
+        .hero p {
+            font-size: 20px;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            color: var(--text);
+        }
+        
+        /* Продукты */
+        .section-title {
+            font-size: 28px;
+            margin: 40px 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--accent);
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+        
+        .product-card {
+            background-color: var(--secondary);
+            border-radius: 5px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+        
+        .product-image {
+            height: 160px;
+            background-color: #2a475e;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .product-info {
+            padding: 20px;
+        }
+        
+        .product-title {
+            font-size: 18px;
+            margin-bottom: 8px;
+            color: white;
+        }
+        
+        .product-developer {
+            font-size: 14px;
+            color: var(--accent);
+            margin-bottom: 5px;
+        }
+        
+        .product-category {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+        }
+        
+        .product-description {
+            font-size: 14px;
+            margin-bottom: 15px;
+            color: var(--text);
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .product-price {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .price-current {
+            font-size: 20px;
+            font-weight: bold;
+            color: var(--accent);
+        }
+        
+        .price-original {
+            font-size: 14px;
+            color: var(--text-secondary);
+            text-decoration: line-through;
+        }
+        
+        .discount-badge {
+            background-color: var(--success);
+            color: white;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .free-badge {
+            background-color: var(--accent);
+            color: white;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        /* Страница продукта */
+        .product-page {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+        
+        .product-header {
+            background: linear-gradient(to right, #1b2838, #2a475e);
+            padding: 40px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            display: flex;
+            gap: 40px;
+        }
+        
+        @media (max-width: 768px) {
+            .product-header {
+                flex-direction: column;
+                padding: 20px;
+            }
+        }
+        
+        .product-cover {
+            width: 300px;
+            height: 400px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 5px;
+            flex-shrink: 0;
+        }
+        
+        @media (max-width: 768px) {
+            .product-cover {
+                width: 100%;
+                height: 300px;
+            }
+        }
+        
+        .product-info {
+            flex: 1;
+        }
+        
+        .product-title-large {
+            font-size: 36px;
+            margin-bottom: 10px;
+            color: white;
+        }
+        
+        .product-meta {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+            color: var(--text-secondary);
+            flex-wrap: wrap;
+        }
+        
+        .product-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .screenshots {
+            margin: 30px 0;
+        }
+        
+        .screenshots-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .screenshot {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        
+        .screenshot:hover {
+            transform: scale(1.02);
+        }
+        
+        .description {
+            background-color: var(--secondary);
+            padding: 30px;
+            border-radius: 5px;
+            margin: 30px 0;
+        }
+        
+        .description h2 {
+            margin-bottom: 20px;
+        }
+        
+        .requirements {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .requirements-section {
+            background-color: var(--secondary);
+            padding: 20px;
+            border-radius: 5px;
+        }
+        
+        .requirements-section h3 {
+            margin-bottom: 15px;
+            color: var(--accent);
+        }
+        
+        .requirements-section ul {
+            list-style: none;
+        }
+        
+        .requirements-section li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .requirements-section li:before {
+            content: "•";
+            color: var(--accent);
+            position: absolute;
+            left: 0;
+        }
+        
+        .reviews {
+            margin: 40px 0;
+        }
+        
+        .review-card {
+            background-color: var(--secondary);
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            align-items: center;
+        }
+        
+        .review-user {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .review-rating {
+            color: #ffd700;
+            font-size: 18px;
+        }
+        
+        .review-date {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+        
+        /* Библиотека */
+        .library-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+        
+        .library-item {
+            background-color: var(--secondary);
+            border-radius: 5px;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+        
+        .library-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .library-item-image {
+            height: 140px;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .library-item-info {
+            padding: 20px;
+        }
+        
+        .library-item-title {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: white;
+        }
+        
+        .library-item-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        /* Формы */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 12px;
+            background: #2a475e;
+            border: 1px solid var(--border);
+            border-radius: 3px;
+            color: white;
+            font-size: 16px;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+        
+        .form-textarea {
+            width: 100%;
+            padding: 12px;
+            background: #2a475e;
+            border: 1px solid var(--border);
+            border-radius: 3px;
+            color: white;
+            font-size: 16px;
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        /* Модальные окна */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            overflow-y: auto;
+        }
+        
+        .modal-content {
+            background-color: var(--secondary);
+            margin: 5% auto;
+            padding: 30px;
+            width: 90%;
+            max-width: 500px;
+            border-radius: 5px;
+            position: relative;
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .modal-title {
+            font-size: 24px;
+            color: white;
+        }
+        
+        .modal-close {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 24px;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        
+        .modal-close:hover {
+            color: white;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--secondary);
+            padding: 40px 0 20px;
+            margin-top: 50px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-section h3 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: white;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+        
+        /* Адаптивность */
+        @media (max-width: 992px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .nav-links {
+                order: 3;
+                width: 100%;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            .user-actions {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .hero p {
+                font-size: 18px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .products-grid, .library-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            
+            .product-title-large {
+                font-size: 28px;
+            }
+            
+            .modal-content {
+                margin: 10% auto;
+                padding: 20px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            .products-grid, .library-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .product-actions {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+        }
+        
+        /* Утилиты */
+        .text-center {
+            text-align: center;
+        }
+        
+        .mb-20 {
+            margin-bottom: 20px;
+        }
+        
+        .mt-30 {
+            margin-top: 30px;
+        }
+        
+        .d-flex {
+            display: flex;
+        }
+        
+        .align-center {
+            align-items: center;
+        }
+        
+        .justify-between {
+            justify-content: space-between;
+        }
+        
+        .gap-10 {
+            gap: 10px;
+        }
+        
+        .gap-20 {
+            gap: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="#" class="logo" onclick="showPage('home'); return false;">
+                    <i class="fas fa-gamepad"></i>
+                    <span>Fimza Software</span>
+                </a>
+                
+                <nav class="nav-links">
+                    <a href="#" class="nav-link active" onclick="showPage('home'); return false;">Магазин</a>
+                    <a href="#" class="nav-link" onclick="showPage('library'); return false;">Библиотека</a>
+                    <a href="#" class="nav-link" onclick="showPage('community'); return false;">Сообщество</a>
+                    <a href="#" class="nav-link" onclick="showPage('developer'); return false;">Разработчикам</a>
+                </nav>
+                
+                <div class="user-actions">
+                    <div class="search-box">
+                        <i class="fas fa-search search-icon"></i>
+                        <input type="text" class="search-input" placeholder="Поиск игр..." id="searchInput">
+                    </div>
+                    
+                    <div class="user-menu" id="userMenu">
+                        <!-- Будет заполнено JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Главная страница (Магазин) -->
+    <div id="home-page" class="page">
+        <div class="container">
+            <!-- Hero Section -->
+            <div class="hero">
+                <h1>Откройте мир игр и приложений</h1>
+                <p>Fimza Software - платформа для распространения и открытия инди-игр и полезных приложений от разработчиков со всего мира</p>
+                <button class="btn btn-primary btn-large" onclick="scrollToProducts()">Исследовать магазин</button>
+            </div>
+            
+            <!-- Featured Games -->
+            <h2 class="section-title" id="products-section">Популярные игры</h2>
+            <div class="products-grid" id="featured-products">
+                <!-- Продукты будут загружены через JavaScript -->
+            </div>
+            
+            <!-- New Releases -->
+            <h2 class="section-title">Новые релизы</h2>
+            <div class="products-grid" id="new-products">
+                <!-- Продукты будут загружены через JavaScript -->
+            </div>
+            
+            <!-- Free Apps -->
+            <h2 class="section-title">Бесплатные приложения</h2>
+            <div class="products-grid" id="free-products">
+                <!-- Продукты будут загружены через JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Страница библиотеки -->
+    <div id="library-page" class="page hidden">
+        <div class="container">
+            <h1 class="page-title">Моя библиотека</h1>
+            <p class="mb-20">Здесь находятся все купленные вами игры и приложения</p>
+            
+            <div class="library-grid" id="library-items">
+                <!-- Библиотека будет загружена через JavaScript -->
+            </div>
+            
+            <div class="text-center mt-30" id="empty-library">
+                <p>Ваша библиотека пуста. Купите игры в магазине!</p>
+                <button class="btn btn-primary mt-30" onclick="showPage('home')">Перейти в магазин</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Страница сообщества -->
+    <div id="community-page" class="page hidden">
+        <div class="container">
+            <h1 class="page-title">Сообщество</h1>
+            <p>Обсуждайте игры, находите друзей и делитесь достижениями</p>
+            
+            <div class="description mt-30">
+                <h2>Функции сообщества</h2>
+                <ul style="list-style: none; margin-top: 15px;">
+                    <li style="margin-bottom: 10px; padding-left: 20px; position: relative;">
+                        <i class="fas fa-comments" style="color: var(--accent); position: absolute; left: 0;"></i>
+                        <strong>Форумы</strong> - Обсуждайте игры с другими игроками
+                    </li>
+                    <li style="margin-bottom: 10px; padding-left: 20px; position: relative;">
+                        <i class="fas fa-users" style="color: var(--accent); position: absolute; left: 0;"></i>
+                        <strong>Группы</strong> - Найдите единомышленников
+                    </li>
+                    <li style="margin-bottom: 10px; padding-left: 20px; position: relative;">
+                        <i class="fas fa-trophy" style="color: var(--accent); position: absolute; left: 0;"></i>
+                        <strong>Достижения</strong> - Покажите свои игровые успехи
+                    </li>
+                    <li style="margin-bottom: 10px; padding-left: 20px; position: relative;">
+                        <i class="fas fa-newspaper" style="color: var(--accent); position: absolute; left: 0;"></i>
+                        <strong>Новости</strong> - Будьте в курсе обновлений
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="text-center mt-30">
+                <p>Функции сообщества будут доступны после входа в систему</p>
+                <button class="btn btn-primary mt-30" onclick="showLoginModal()">Войти в аккаунт</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Страница для разработчиков -->
+    <div id="developer-page" class="page hidden">
+        <div class="container">
+            <h1 class="page-title">Разработчикам</h1>
+            <p>Публикуйте свои игры и приложения на Fimza Software</p>
+            
+            <div class="description mt-30">
+                <h2>Преимущества публикации на Fimza Software</h2>
+                <ul style="list-style: none; margin-top: 15px;">
+                    <li style="margin-bottom: 10px; padding-left: 20px; position: relative;">
+                        <i class="fas fa-percentage" style="color: var(--accent); position: absolute; left: 0;"></i>
+                        <strong>Высокие роялти</strong> - Получайте 80% от каждой продажи
+                    </li>
+                    <li style="margin-bottom: 10px; padding-left: 20px; position: relative;">
+                        <i class="fas fa-globe" style="color: var(--accent); position: absolute; left: 0;"></i>
+                        <strong>Глобальная аудитория</strong> - Ваши игры увидят миллионы пользователей
+                    </li>
+                    <li style="margin-bottom: 10px; padding-left: 20px; position: relative;">
+                        <i class="fas fa-tools" style="color: var(--accent); position: absolute; left: 0;"></i>
+                        <strong>Мощные инструменты</strong> - Статистика, обновления, управление контентом
+                    </li>
+                    <li style="margin-bottom: 10px; padding-left: 20px; position: relative;">
+                        <i class="fas fa-comments" style="color: var(--accent); position: absolute; left: 0;"></i>
+                        <strong>Прямая связь</strong> - Общайтесь с игроками через встроенную систему отзывов
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="text-center mt-30">
+                <button class="btn btn-primary btn-large" onclick="showRegisterModal()">Стать разработчиком</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Страница продукта -->
+    <div id="product-page" class="page hidden">
+        <div class="container product-page">
+            <!-- Контент страницы продукта будет загружен через JavaScript -->
+        </div>
+    </div>
+
+    <!-- Модальное окно входа -->
+    <div id="login-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Вход в аккаунт</h2>
+                <button class="modal-close" onclick="closeModal('login-modal')">&times;</button>
+            </div>
+            
+            <form id="login-form">
+                <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-input" id="login-email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Пароль</label>
+                    <input type="password" class="form-input" id="login-password" required>
+                </div>
+                
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Войти</button>
+                </div>
+            </form>
+            
+            <p class="text-center">Нет аккаунта? <a href="#" onclick="showRegisterModal(); closeModal('login-modal'); return false;" style="color: var(--accent);">Зарегистрироваться</a></p>
+        </div>
+    </div>
+
+    <!-- Модальное окно регистрации -->
+    <div id="register-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Регистрация</h2>
+                <button class="modal-close" onclick="closeModal('register-modal')">&times;</button>
+            </div>
+            
+            <form id="register-form">
+                <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-input" id="register-email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Имя пользователя</label>
+                    <input type="text" class="form-input" id="register-username" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Пароль</label>
+                    <input type="password" class="form-input" id="register-password" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Подтвердите пароль</label>
+                    <input type="password" class="form-input" id="register-confirm-password" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="register-developer"> Я разработчик
+                    </label>
+                </div>
+                
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Зарегистрироваться</button>
+                </div>
+            </form>
+            
+            <p class="text-center">Уже есть аккаунт? <a href="#" onclick="showLoginModal(); closeModal('register-modal'); return false;" style="color: var(--accent);">Войти</a></p>
+        </div>
+    </div>
+
+    <!-- Модальное окно корзины -->
+    <div id="cart-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Корзина</h2>
+                <button class="modal-close" onclick="closeModal('cart-modal')">&times;</button>
+            </div>
+            
+            <div id="cart-items">
+                <!-- Товары в корзине будут загружены через JavaScript -->
+            </div>
+            
+            <div id="cart-empty" class="text-center">
+                <p>Ваша корзина пуста</p>
+                <button class="btn btn-primary mt-30" onclick="closeModal('cart-modal'); showPage('home');">Перейти в магазин</button>
+            </div>
+            
+            <div id="cart-summary" class="hidden">
+                <div class="d-flex justify-between align-center mt-30">
+                    <h3>Итого:</h3>
+                    <h3 id="cart-total">$0.00</h3>
+                </div>
+                
+                <div class="form-group mt-30">
+                    <button class="btn btn-success" style="width: 100%;" onclick="checkout()">Оформить заказ</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Fimza Software</h3>
+                    <p>Платформа для распространения игр и приложений от независимых разработчиков.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Магазин</h3>
+                    <ul class="footer-links">
+                        <li><a href="#" onclick="showPage('home'); return false;">Главная</a></li>
+                        <li><a href="#" onclick="showPage('home'); scrollToProducts(); return false;">Категории</a></li>
+                        <li><a href="#" onclick="showPage('home'); return false;">Бесплатные</a></li>
+                        <li><a href="#" onclick="showPage('home'); return false;">Скидки</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Поддержка</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Помощь</a></li>
+                        <li><a href="#">Возврат средств</a></li>
+                        <li><a href="#">Статус сервера</a></li>
+                        <li><a href="#">Контакты</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Разработчикам</h3>
+                    <ul class="footer-links">
+                        <li><a href="#" onclick="showPage('developer'); return false;">Публикация приложений</a></li>
+                        <li><a href="#">Документация API</a></li>
+                        <li><a href="#">Партнерская программа</a></li>
+                        <li><a href="#">Форум разработчиков</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2024 Fimza Software. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Данные приложения
+        let currentUser = null;
+        let cart = [];
+        let library = [];
+        let wishlist = [];
+        
+        // Пример данных продуктов
+        const products = [
+            {
+                id: 1,
+                title: "Cyberpunk Adventures",
+                developer: "Neon Studios",
+                category: "Экшен",
+                type: "game",
+                description: "Захватывающая экшен-игра в киберпанк стиле. Исследуйте огромный открытый мир, выполняйте задания и сражайтесь с врагами.",
+                shortDescription: "Киберпанк экшен с открытым миром",
+                price: 29.99,
+                discount: 20,
+                isFree: false,
+                coverImage: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80",
+                screenshots: [
+                    "https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80",
+                    "https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80",
+                    "https://images.unsplash.com/photo-1534423861386-85a16f5d13fd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80"
+                ],
+                releaseDate: "2023-10-15",
+                averageRating: 4.5,
+                totalReviews: 128,
+                minOS: "Windows 10",
+                minProcessor: "Intel Core i5",
+                minMemory: "8 GB RAM",
+                minGraphics: "NVIDIA GTX 1060",
+                minStorage: "50 GB",
+                downloads: 15000
+            },
+            {
+                id: 2,
+                title: "Pixel Art Studio",
+                developer: "Creative Tools Inc.",
+                category: "Дизайн",
+                type: "app",
+                description: "Мощный редактор для создания пиксель-арта. Подходит как для начинающих, так и для профессионалов.",
+                shortDescription: "Редактор пиксель-арта с множеством инструментов",
+                price: 19.99,
+                discount: 0,
+                isFree: false,
+                coverImage: "https://images.unsplash.com/photo-1545235617-9465d2a55698?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80",
+                screenshots: [
+                    "https://images.unsplash.com/photo-1545235617-9465d2a55698?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80",
+                    "https://images.unsplash.com/photo-1516116216624-53e697fedbea?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80"
+                ],
+                releaseDate: "2023-08-22",
+                averageRating: 4.2,
+                totalReviews: 89,
+                minOS: "Windows 10 / macOS 10.14",
+                minProcessor: "Intel Core i3",
+                minMemory: "4 GB RAM",
+                minGraphics: "Integrated GPU",
+                minStorage: "1 GB",
+                downloads: 8500
+            },
+            {
+                id: 3,
+                title: "Space Explorer",
+                developer: "Cosmic Games",
+                category: "Симулятор",
+                type: "game",
+                description: "Исследуйте бескрайние просторы космоса, открывайте новые планеты и стройте космические станции.",
+                shortDescription: "Космический симулятор с исследованием планет",
+                price: 0,
+                discount: 0,
+                isFree: true,
+                coverImage: "https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80",
+                screenshots: [
+                    "https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80",
+                    "https://images.unsplash.com/photo-1462331940025-496dfbfc7564?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80"
+                ],
+                releaseDate: "2023-11-05",
+                averageRating: 4.7,
+                totalReviews: 256,
+                minOS: "Windows 10",
+                minProcessor: "Intel Core i3",
+                minMemory: "6 GB RAM",
+                minGraphics: "NVIDIA GTX 750",
+                minStorage: "10 GB",
+                downloads: 45000
+            },
+            {
+                id: 4,
+                title: "CodeMaster Pro",
+                developer: "DevTools",
+                category: "Разработка",
+                type: "software",
+                description: "Продвинутая среда разработки с поддержкой всех популярных языков программирования и инструментами для отладки.",
+                shortDescription: "Профессиональная среда разработки",
+                price: 49.99,
+                discount: 30,
+                isFree: false,
+                coverImage: "https://images.unsplash.com/photo-1516116216624-53e697fedbea?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80",
+                screenshots: [
+                    "https://images.unsplash.com/photo-1516116216624-53e697fedbea?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80",
+                    "https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80"
+                ],
+                releaseDate: "2023-09-30",
+                averageRating: 4.8,
+                totalReviews: 312,
+                minOS: "Windows 10 / macOS 10.15 / Linux",
+                minProcessor: "Intel Core i5",
+                minMemory: "8 GB RAM",
+                minGraphics: "Integrated GPU",
+                minStorage: "2 GB",
+                downloads: 12000
+            },
+            {
+                id: 5,
+                title: "Forest Guardian",
+                developer: "Nature Games",
+                category: "Приключение",
+                type: "game",
+                description: "Приключенческая игра о защите леса от злых сил. Исследуйте красивые локации и решайте головоломки.",
+                shortDescription: "Приключенческая игра в мире природы",
+                price: 14.99,
+                discount: 10,
+                isFree: false,
+                coverImage: "https://images.unsplash.com/photo-1448375240586-882707db888b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80",
+                screenshots: [
+                    "https://images.unsplash.com/photo-1448375240586-882707db888b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80"
+                ],
+                releaseDate: "2023-12-01",
+                averageRating: 4.3,
+                totalReviews: 67,
+                minOS: "Windows 10 / macOS 10.14",
+                minProcessor: "Intel Core i3",
+                minMemory: "4 GB RAM",
+                minGraphics: "Intel HD 4000",
+                minStorage: "8 GB",
+                downloads: 5200
+            },
+            {
+                id: 6,
+                title: "PhotoEdit Pro",
+                developer: "Creative Suite",
+                category: "Фоторедактор",
+                type: "app",
+                description: "Профессиональный редактор фотографий с поддержкой слоев, фильтров и расширенными инструментами ретуши.",
+                shortDescription: "Профессиональный редактор фотографий",
+                price: 24.99,
+                discount: 0,
+                isFree: false,
+                coverImage: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80",
+                screenshots: [
+                    "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80"
+                ],
+                releaseDate: "2023-07-18",
+                averageRating: 4.6,
+                totalReviews: 143,
+                minOS: "Windows 10 / macOS 10.15",
+                minProcessor: "Intel Core i5",
+                minMemory: "8 GB RAM",
+                minGraphics: "NVIDIA GTX 1050",
+                minStorage: "2 GB",
+                downloads: 9300
+            }
+        ];
+
+        // Пример отзывов
+        const reviews = [
+            {
+                id: 1,
+                productId: 1,
+                userId: 1,
+                username: "AlexGamer",
+                rating: 5,
+                text: "Отличная игра! Графика на высоте, сюжет захватывающий. Рекомендую всем любителям киберпанка.",
+                date: "2023-11-10",
+                helpful: 42
+            },
+            {
+                id: 2,
+                productId: 1,
+                userId: 2,
+                username: "CyberFan",
+                rating: 4,
+                text: "Хорошая игра, но есть некоторые технические проблемы. Разработчики обещают исправить в следующем обновлении.",
+                date: "2023-11-05",
+                helpful: 18
+            },
+            {
+                id: 3,
+                productId: 3,
+                userId: 3,
+                username: "SpaceLover",
+                rating: 5,
+                text: "Невероятно красивая и увлекательная игра. Лучший космический симулятор, в который я играл!",
+                date: "2023-11-15",
+                helpful: 56
+            }
+        ];
+
+        // Инициализация при загрузке страницы
+        document.addEventListener('DOMContentLoaded', function() {
+            // Загружаем данные из localStorage
+            loadFromLocalStorage();
+            
+            // Инициализируем пользовательский интерфейс
+            updateUserMenu();
+            renderProducts();
+            updateCart();
+            updateLibrary();
+            
+            // Настраиваем обработчики событий
+            setupEventListeners();
+            
+            // Показываем главную страницу
+            showPage('home');
+        });
+
+        // Загрузка данных из localStorage
+        function loadFromLocalStorage() {
+            const savedUser = localStorage.getItem('fimza_user');
+            if (savedUser) {
+                currentUser = JSON.parse(savedUser);
+            }
+            
+            const savedCart = localStorage.getItem('fimza_cart');
+            if (savedCart) {
+                cart = JSON.parse(savedCart);
+            }
+            
+            const savedLibrary = localStorage.getItem('fimza_library');
+            if (savedLibrary) {
+                library = JSON.parse(savedLibrary);
+            }
+            
+            const savedWishlist = localStorage.getItem('fimza_wishlist');
+            if (savedWishlist) {
+                wishlist = JSON.parse(savedWishlist);
+            }
+        }
+
+        // Сохранение данных в localStorage
+        function saveToLocalStorage() {
+            if (currentUser) {
+                localStorage.setItem('fimza_user', JSON.stringify(currentUser));
+            }
+            localStorage.setItem('fimza_cart', JSON.stringify(cart));
+            localStorage.setItem('fimza_library', JSON.stringify(library));
+            localStorage.setItem('fimza_wishlist', JSON.stringify(wishlist));
+        }
+
+        // Настройка обработчиков событий
+        function setupEventListeners() {
+            // Форма входа
+            document.getElementById('login-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                login();
+            });
+            
+            // Форма регистрации
+            document.getElementById('register-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                register();
+            });
+            
+            // Поиск
+            document.getElementById('searchInput').addEventListener('input', function(e) {
+                searchProducts(e.target.value);
+            });
+            
+            // Закрытие модальных окон при клике вне их
+            window.addEventListener('click', function(e) {
+                const modals = document.querySelectorAll('.modal');
+                modals.forEach(modal => {
+                    if (e.target === modal) {
+                        modal.style.display = 'none';
+                    }
+                });
+            });
+        }
+
+        // Обновление меню пользователя
+        function updateUserMenu() {
+            const userMenu = document.getElementById('userMenu');
+            
+            if (currentUser) {
+                userMenu.innerHTML = `
+                    <div class="avatar">${currentUser.username.charAt(0).toUpperCase()}</div>
+                    <div class="username">${currentUser.username}</div>
+                    <div class="d-flex gap-10">
+                        <button class="btn btn-secondary" onclick="showCartModal()">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span id="cart-count">${cart.length}</span>
+                        </button>
+                        <button class="btn btn-secondary" onclick="logout()">
+                            <i class="fas fa-sign-out-alt"></i>
+                        </button>
+                    </div>
+                `;
+            } else {
+                userMenu.innerHTML = `
+                    <button class="btn btn-secondary" onclick="showLoginModal()">Войти</button>
+                    <button class="btn btn-primary" onclick="showRegisterModal()">Регистрация</button>
+                `;
+            }
+        }
+
+        // Отображение продуктов
+        function renderProducts() {
+            renderProductSection('featured-products', products.slice(0, 4));
+            renderProductSection('new-products', products.slice(2, 6));
+            renderProductSection('free-products', products.filter(p => p.isFree));
+        }
+
+        function renderProductSection(containerId, productList) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            
+            container.innerHTML = '';
+            
+            productList.forEach(product => {
+                const price = product.isFree ? 0 : product.price * (1 - product.discount / 100);
+                const isInLibrary = library.some(item => item.id === product.id);
+                const isInWishlist = wishlist.some(item => item.id === product.id);
+                
+                const productCard = document.createElement('div');
+                productCard.className = 'product-card';
+                productCard.onclick = () => showProductPage(product.id);
+                
+                productCard.innerHTML = `
+                    <div class="product-image" style="background-image: url('${product.coverImage}')"></div>
+                    <div class="product-info">
+                        <h3 class="product-title">${product.title}</h3>
+                        <div class="product-developer">${product.developer}</div>
+                        <div class="product-category">${product.category} • ${getTypeName(product.type)}</div>
+                        <div class="product-description">${product.shortDescription}</div>
+                        <div class="product-price">
+                            ${product.isFree ? 
+                                '<span class="free-badge">БЕСПЛАТНО</span>' : 
+                                `
+                                <span class="price-current">$${price.toFixed(2)}</span>
+                                ${product.discount > 0 ? 
+                                    `<span class="price-original">$${product.price.toFixed(2)}</span>
+                                     <span class="discount-badge">-${product.discount}%</span>` : ''
+                                }
+                                `
+                            }
+                        </div>
+                        ${isInLibrary ? 
+                            '<div class="mt-20"><span class="free-badge"><i class="fas fa-check"></i> В библиотеке</span></div>' : 
+                            `<div class="product-actions d-flex gap-10 mt-20">
+                                <button class="btn btn-primary" onclick="event.stopPropagation(); addToCart(${product.id})">
+                                    <i class="fas fa-shopping-cart"></i> ${product.isFree ? 'Получить' : 'Купить'}
+                                </button>
+                                <button class="btn btn-secondary" onclick="event.stopPropagation(); toggleWishlist(${product.id})">
+                                    <i class="${isInWishlist ? 'fas' : 'far'} fa-heart"></i>
+                                </button>
+                            </div>`
+                        }
+                    </div>
+                `;
+                
+                container.appendChild(productCard);
+            });
+        }
+
+        // Поиск продуктов
+        function searchProducts(query) {
+            if (!query.trim()) {
+                renderProducts();
+                return;
+            }
+            
+            const searchResults = products.filter(product => 
+                product.title.toLowerCase().includes(query.toLowerCase()) ||
+                product.developer.toLowerCase().includes(query.toLowerCase()) ||
+                product.category.toLowerCase().includes(query.toLowerCase()) ||
+                product.description.toLowerCase().includes(query.toLowerCase())
+            );
+            
+            // Очищаем все секции и показываем результаты поиска
+            document.getElementById('featured-products').innerHTML = '';
+            document.getElementById('new-products').innerHTML = '';
+            document.getElementById('free-products').innerHTML = '';
+            
+            if (searchResults.length > 0) {
+                renderProductSection('featured-products', searchResults);
+                document.querySelector('#products-section').scrollIntoView({ behavior: 'smooth' });
+            } else {
+                document.getElementById('featured-products').innerHTML = '<p class="text-center">Ничего не найдено</p>';
+            }
+        }
+
+        // Отображение страницы продукта
+        function showProductPage(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+            
+            const productReviews = reviews.filter(r => r.productId === productId);
+            const price = product.isFree ? 0 : product.price * (1 - product.discount / 100);
+            const isInLibrary = library.some(item => item.id === product.id);
+            const isInWishlist = wishlist.some(item => item.id === product.id);
+            
+            const productPage = document.getElementById('product-page');
+            productPage.innerHTML = `
+                <div class="product-header">
+                    <div class="product-cover" style="background-image: url('${product.coverImage}')"></div>
+                    <div class="product-info">
+                        <h1 class="product-title-large">${product.title}</h1>
+                        <div class="product-meta">
+                            <span>Разработчик: ${product.developer}</span>
+                            <span>Дата выхода: ${formatDate(product.releaseDate)}</span>
+                            <span>Категория: ${product.category}</span>
+                            <span>Тип: ${getTypeName(product.type)}</span>
+                        </div>
+                        
+                        <div class="product-rating mb-20">
+                            <span class="review-rating">${getStarRating(product.averageRating)}</span>
+                            <span>${product.averageRating.toFixed(1)} (${product.totalReviews} отзывов)</span>
+                        </div>
+                        
+                        <div class="product-description">
+                            <p>${product.description}</p>
+                        </div>
+                        
+                        <div class="product-price-section mb-20">
+                            ${product.isFree ? 
+                                '<div class="free-badge" style="font-size: 24px; padding: 10px 20px;">БЕСПЛАТНО</div>' : 
+                                `<div style="display: flex; align-items: center; gap: 20px;">
+                                    ${product.discount > 0 ? 
+                                        `<span style="font-size: 14px; color: var(--text-secondary); text-decoration: line-through;">
+                                            $${product.price.toFixed(2)}
+                                        </span>` : ''
+                                    }
+                                    <span style="font-size: 36px; color: var(--accent); font-weight: bold;">
+                                        $${price.toFixed(2)}
+                                    </span>
+                                    ${product.discount > 0 ? 
+                                        `<span class="discount-badge" style="font-size: 20px; padding: 5px 15px;">
+                                            -${product.discount}%
+                                        </span>` : ''
+                                    }
+                                </div>`
+                            }
+                        </div>
+                        
+                        <div class="product-actions">
+                            ${isInLibrary ? 
+                                `<button class="btn btn-primary btn-large">
+                                    <i class="fas fa-download"></i> Установить
+                                </button>` : 
+                                `<button class="btn btn-primary btn-large" onclick="addToCart(${product.id}); closePage('product-page');">
+                                    <i class="fas fa-shopping-cart"></i> 
+                                    ${product.isFree ? 'Получить бесплатно' : 'Купить сейчас'}
+                                </button>`
+                            }
+                            <button class="btn btn-secondary" onclick="toggleWishlist(${product.id})">
+                                <i class="${isInWishlist ? 'fas' : 'far'} fa-heart"></i> 
+                                ${isInWishlist ? 'В списке желаний' : 'В список желаний'}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                ${product.screenshots && product.screenshots.length > 0 ? `
+                <div class="screenshots">
+                    <h2>Скриншоты</h2>
+                    <div class="screenshots-grid">
+                        ${product.screenshots.map((screenshot, index) => `
+                            <div class="screenshot" style="background-image: url('${screenshot}')" 
+                                 onclick="openImageModal('${screenshot}')"></div>
+                        `).join('')}
+                    </div>
+                </div>
+                ` : ''}
+                
+                <div class="description">
+                    <h2>Описание</h2>
+                    <p>${product.description}</p>
+                </div>
+                
+                ${product.minOS ? `
+                <div class="requirements">
+                    <h2>Системные требования</h2>
+                    <div class="requirements-section">
+                        <h3>Минимальные</h3>
+                        <ul>
+                            <li>ОС: ${product.minOS}</li>
+                            <li>Процессор: ${product.minProcessor}</li>
+                            <li>Оперативная память: ${product.minMemory}</li>
+                            <li>Видеокарта: ${product.minGraphics}</li>
+                            <li>Место на диске: ${product.minStorage}</li>
+                        </ul>
+                    </div>
+                </div>
+                ` : ''}
+                
+                <div class="reviews">
+                    <h2>Отзывы (${productReviews.length})</h2>
+                    <div style="margin-bottom: 20px;">
+                        <span class="review-rating">${getStarRating(product.averageRating)}</span>
+                        <span style="margin-left: 10px;">${product.averageRating.toFixed(1)} из 5</span>
+                    </div>
+                    
+                    ${currentUser ? `
+                    <div style="background-color: var(--secondary); padding: 20px; border-radius: 5px; margin-bottom: 30px;">
+                        <h3>Оставить отзыв</h3>
+                        <form onsubmit="addReview(${product.id}); return false;">
+                            <div style="margin-bottom: 15px;">
+                                <label>Оценка:</label>
+                                <div class="star-rating">
+                                    ${[1,2,3,4,5].map(i => `
+                                        <span onclick="setReviewRating(${i})" 
+                                              style="cursor: pointer; font-size: 24px; color: #666;"
+                                              id="review-star-${i}">☆</span>
+                                    `).join('')}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <textarea id="review-text" placeholder="Ваш отзыв..." class="form-textarea"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Отправить отзыв</button>
+                        </form>
+                    </div>
+                    ` : ''}
+                    
+                    <div id="reviews-list">
+                        ${productReviews.length > 0 ? 
+                            productReviews.map(review => `
+                                <div class="review-card">
+                                    <div class="review-header">
+                                        <div class="review-user">
+                                            <div class="avatar" style="width: 32px; height: 32px; font-size: 14px;">${review.username.charAt(0).toUpperCase()}</div>
+                                            <div>
+                                                <strong>${review.username}</strong>
+                                                <div class="review-rating">${getStarRating(review.rating)}</div>
+                                            </div>
+                                        </div>
+                                        <span class="review-date">${formatDate(review.date)}</span>
+                                    </div>
+                                    <p>${review.text}</p>
+                                    <div style="margin-top: 10px;">
+                                        <button class="btn btn-secondary" style="padding: 5px 10px;">
+                                            <i class="fas fa-thumbs-up"></i> Полезно (${review.helpful})
+                                        </button>
+                                    </div>
+                                </div>
+                            `).join('') : 
+                            '<p>Пока нет отзывов. Будьте первым!</p>'
+                        }
+                    </div>
+                </div>
+            `;
+            
+            showPage('product-page');
+        }
+
+        // Управление корзиной
+        function addToCart(productId) {
+            if (!currentUser) {
+                showLoginModal();
+                return;
+            }
+            
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+            
+            // Проверяем, есть ли уже в библиотеке
+            if (library.some(item => item.id === productId)) {
+                alert('Этот продукт уже есть в вашей библиотеке!');
+                return;
+            }
+            
+            // Проверяем, есть ли уже в корзине
+            if (cart.some(item => item.id === productId)) {
+                alert('Этот продукт уже в корзине!');
+                return;
+            }
+            
+            cart.push(product);
+            saveToLocalStorage();
+            updateCart();
+            updateUserMenu();
+            
+            if (product.isFree) {
+                // Бесплатный товар сразу добавляется в библиотеку
+                addToLibrary(productId);
+                alert('Игра добавлена в вашу библиотеку!');
+            } else {
+                alert('Товар добавлен в корзину!');
+            }
+        }
+
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            saveToLocalStorage();
+            updateCart();
+            updateUserMenu();
+        }
+
+        function updateCart() {
+            const cartCount = document.getElementById('cart-count');
+            if (cartCount) {
+                cartCount.textContent = cart.length;
+            }
+            
+            const cartItems = document.getElementById('cart-items');
+            const cartEmpty = document.getElementById('cart-empty');
+            const cartSummary = document.getElementById('cart-summary');
+            const cartTotal = document.getElementById('cart-total');
+            
+            if (!cartItems) return;
+            
+            if (cart.length === 0) {
+                cartItems.innerHTML = '';
+                cartEmpty.classList.remove('hidden');
+                cartSummary.classList.add('hidden');
+            } else {
+                cartEmpty.classList.add('hidden');
+                cartSummary.classList.remove('hidden');
+                
+                let total = 0;
+                cartItems.innerHTML = '';
+                
+                cart.forEach(item => {
+                    const price = item.isFree ? 0 : item.price * (1 - item.discount / 100);
+                    total += price;
+                    
+                    const cartItem = document.createElement('div');
+                    cartItem.className = 'd-flex justify-between align-center mb-20';
+                    cartItem.innerHTML = `
+                        <div>
+                            <h4 style="margin-bottom: 5px;">${item.title}</h4>
+                            <div style="color: var(--text-secondary); font-size: 14px;">${item.developer}</div>
+                        </div>
+                        <div class="d-flex align-center gap-10">
+                            <span style="font-weight: bold; color: var(--accent);">$${price.toFixed(2)}</span>
+                            <button class="btn btn-secondary" style="padding: 5px 10px;" onclick="removeFromCart(${item.id})">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    `;
+                    
+                    cartItems.appendChild(cartItem);
+                });
+                
+                cartTotal.textContent = `$${total.toFixed(2)}`;
+            }
+        }
+
+        // Управление библиотекой
+        function addToLibrary(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+            
+            if (!library.some(item => item.id === productId)) {
+                library.push(product);
+                saveToLocalStorage();
+                updateLibrary();
+                
+                // Удаляем из корзины, если был там
+                if (cart.some(item => item.id === productId)) {
+                    removeFromCart(productId);
+                }
+            }
+        }
+
+        function updateLibrary() {
+            const libraryItems = document.getElementById('library-items');
+            const emptyLibrary = document.getElementById('empty-library');
+            
+            if (!libraryItems) return;
+            
+            if (library.length === 0) {
+                libraryItems.innerHTML = '';
+                if (emptyLibrary) emptyLibrary.classList.remove('hidden');
+            } else {
+                if (emptyLibrary) emptyLibrary.classList.add('hidden');
+                libraryItems.innerHTML = '';
+                
+                library.forEach(item => {
+                    const libraryItem = document.createElement('div');
+                    libraryItem.className = 'library-item';
+                    
+                    libraryItem.innerHTML = `
+                        <div class="library-item-image" style="background-image: url('${item.coverImage}')"></div>
+                        <div class="library-item-info">
+                            <h3 class="library-item-title">${item.title}</h3>
+                            <div style="color: var(--text-secondary); font-size: 14px; margin-bottom: 10px;">${item.developer}</div>
+                            <div class="library-item-actions">
+                                <button class="btn btn-primary" onclick="installProduct(${item.id})">
+                                    <i class="fas fa-download"></i> Установить
+                                </button>
+                                <button class="btn btn-secondary" onclick="showProductPage(${item.id})">
+                                    <i class="fas fa-info-circle"></i>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                    
+                    libraryItems.appendChild(libraryItem);
+                });
+            }
+        }
+
+        // Управление списком желаний
+        function toggleWishlist(productId) {
+            if (!currentUser) {
+                showLoginModal();
+                return;
+            }
+            
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+            
+            const index = wishlist.findIndex(item => item.id === productId);
+            
+            if (index === -1) {
+                wishlist.push(product);
+                alert('Добавлено в список желаний!');
+            } else {
+                wishlist.splice(index, 1);
+                alert('Удалено из списка желаний!');
+            }
+            
+            saveToLocalStorage();
+            renderProducts();
+        }
+
+        // Авторизация
+        function login() {
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            
+            // Простая валидация
+            if (!email || !password) {
+                alert('Пожалуйста, заполните все поля');
+                return;
+            }
+            
+            // В реальном приложении здесь был бы запрос к серверу
+            currentUser = {
+                id: 1,
+                email: email,
+                username: email.split('@')[0],
+                isDeveloper: false
+            };
+            
+            saveToLocalStorage();
+            updateUserMenu();
+            closeModal('login-modal');
+            alert('Вход выполнен успешно!');
+        }
+
+        function register() {
+            const email = document.getElementById('register-email').value;
+            const username = document.getElementById('register-username').value;
+            const password = document.getElementById('register-password').value;
+            const confirmPassword = document.getElementById('register-confirm-password').value;
+            const isDeveloper = document.getElementById('register-developer').checked;
+            
+            // Простая валидация
+            if (!email || !username || !password || !confirmPassword) {
+                alert('Пожалуйста, заполните все поля');
+                return;
+            }
+            
+            if (password !== confirmPassword) {
+                alert('Пароли не совпадают');
+                return;
+            }
+            
+            if (password.length < 6) {
+                alert('Пароль должен быть не менее 6 символов');
+                return;
+            }
+            
+            // В реальном приложении здесь был бы запрос к серверу
+            currentUser = {
+                id: Date.now(),
+                email: email,
+                username: username,
+                isDeveloper: isDeveloper
+            };
+            
+            saveToLocalStorage();
+            updateUserMenu();
+            closeModal('register-modal');
+            
+            if (isDeveloper) {
+                alert('Регистрация успешна! Теперь вы можете публиковать свои игры на Fimza Software.');
+            } else {
+                alert('Регистрация успешна! Добро пожаловать в Fimza Software.');
+            }
+        }
+
+        function logout() {
+            currentUser = null;
+            saveToLocalStorage();
+            updateUserMenu();
+            showPage('home');
+            alert('Вы вышли из аккаунта');
+        }
+
+        // Оформление заказа
+        function checkout() {
+            if (cart.length === 0) {
+                alert('Корзина пуста');
+                return;
+            }
+            
+            // В реальном приложении здесь была бы оплата
+            cart.forEach(item => {
+                if (!item.isFree) {
+                    addToLibrary(item.id);
+                }
+            });
+            
+            cart = [];
+            saveToLocalStorage();
+            updateCart();
+            updateUserMenu();
+            closeModal('cart-modal');
+            
+            alert('Заказ успешно оформлен! Игры добавлены в вашу библиотеку.');
+            showPage('library');
+        }
+
+        // Навигация по страницам
+        function showPage(pageId) {
+            // Скрыть все страницы
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.add('hidden');
+            });
+            
+            // Показать выбранную страницу
+            document.getElementById(`${pageId}-page`).classList.remove('hidden');
+            
+            // Обновить активную ссылку в навигации
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            const activeLink = Array.from(document.querySelectorAll('.nav-link')).find(link => 
+                link.textContent === getPageName(pageId)
+            );
+            
+            if (activeLink) {
+                activeLink.classList.add('active');
+            }
+        }
+
+        function closePage(pageId) {
+            document.getElementById(`${pageId}-page`).classList.add('hidden');
+            showPage('home');
+        }
+
+        function getPageName(pageId) {
+            const pageNames = {
+                'home': 'Магазин',
+                'library': 'Библиотека',
+                'community': 'Сообщество',
+                'developer': 'Разработчикам'
+            };
+            
+            return pageNames[pageId] || 'Магазин';
+        }
+
+        // Управление модальными окнами
+        function showLoginModal() {
+            document.getElementById('login-modal').style.display = 'block';
+        }
+
+        function showRegisterModal() {
+            document.getElementById('register-modal').style.display = 'block';
+        }
+
+        function showCartModal() {
+            if (!currentUser) {
+                showLoginModal();
+                return;
+            }
+            
+            updateCart();
+            document.getElementById('cart-modal').style.display = 'block';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        // Вспомогательные функции
+        function getTypeName(type) {
+            const typeNames = {
+                'game': 'Игра',
+                'app': 'Приложение',
+                'software': 'Программное обеспечение'
+            };
+            
+            return typeNames[type] || type;
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('ru-RU');
+        }
+
+        function getStarRating(rating) {
+            let stars = '';
+            for (let i = 1; i <= 5; i++) {
+                stars += i <= Math.round(rating) ? '★' : '☆';
+            }
+            return stars;
+        }
+
+        function scrollToProducts() {
+            document.querySelector('#products-section').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function installProduct(productId) {
+            alert('Начинается установка... В реальном приложении здесь был бы запуск установщика.');
+        }
+
+        function openImageModal(imageUrl) {
+            alert('В реальном приложении здесь открывалось бы модальное окно с изображением.');
+        }
+
+        // Инициализация отображения продуктов при загрузке
+        renderProducts();
+    </script>
+</body>
+</html>
